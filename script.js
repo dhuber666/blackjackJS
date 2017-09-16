@@ -128,7 +128,6 @@ var handlers = {
         views.dealerSetup();
 
         blackjack.gameOver = false;
-        blackjack.player.chips = 30; //TODO: delete this later on and dont give them every new round 30 chips
         views.showPlayerScore();
     }
 }
@@ -137,6 +136,7 @@ var views = {
     
     newCardPlayer: function() {
         // deactive bet button
+        if (bet.betScore > 0) {
         var betButton = document.getElementById("placeBet");
         betButton.style = "display: none";
 
@@ -149,6 +149,9 @@ var views = {
         document.querySelector(".player-hand").appendChild(li);
         this.showPlayerScore();
         this.checkCondition();
+        } else {
+            alert("You have to place a bet first");
+        }
 
     },
     newCardDealer: function() {
@@ -238,17 +241,20 @@ var views = {
                 result.innerHTML = "The dealer has " + dealerScore + " and you have " + playerScore + "! It's a tie, Play again?";
                 blackjack.gameOver = true;
                 blackjack.player.ties++;
+                blackjack.player.chips += bet.betScore;
                 this.playAgain();
             } else {
                 result.innerHTML = "The dealer has " + dealerScore + " and you have " + playerScore + "! You win, Play again?";
                 blackjack.gameOver = true;
                 blackjack.player.wins++;
+                blackjack.player.chips += bet.betScore * 2;
                 this.playAgain();
             }
         } else {
             result.innerHTML = "The dealer burned himself, you won! Play again?"
             blackjack.gameOver = true;
             blackjack.player.wins++;
+            blackjack.player.chips += bet.betScore * 2;
             this.playAgain();
         }
     },
