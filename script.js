@@ -6,6 +6,7 @@ var blackjack = {
         "spades",
         "clubs"
     ],
+    gameOver: false,
     // it should have a generate card function
     generateCard: function() {
         // generate a random number between 0 and 12 and return it
@@ -122,6 +123,8 @@ var handlers = {
         views.playerSetup();
         views.dealerSetup();
 
+        blackjack.gameOver = false;
+
     }
 }
 
@@ -149,8 +152,16 @@ var views = {
         li.appendChild(text);
         document.querySelector(".dealer-hand").appendChild(li);
         this.showDealerScore();
+
         this.checkCondition();
         
+    },
+    stand: function()
+    {
+        while(!blackjack.gameOver)
+        {
+            this.newCardDealer();
+        }
     },
 
     playerSetup: function() {
@@ -193,6 +204,7 @@ var views = {
         var resultButton = document.getElementById("resultButton");
         if (playerScore > 21) {
             result.innerHTML = "You have burned yourself and lost, play again?"
+            blackjack.gameOver = true;
             this.playAgain();
             
 
@@ -204,16 +216,20 @@ var views = {
         } else if (dealerScore >= 17 && dealerScore < 22) {
             if (dealerScore > playerScore) {
                 result.innerHTML = "The dealer has " + dealerScore + " and you have " + playerScore + "! You loose, Play again?";
+                blackjack.gameOver = true;
                 this.playAgain();
             } else if (dealerScore === playerScore) {
                 result.innerHTML = "The dealer has " + dealerScore + " and you have " + playerScore + "! It's a tie, Play again?";
+                blackjack.gameOver = true;
                 this.playAgain();
             } else {
                 result.innerHTML = "The dealer has " + dealerScore + " and you have " + playerScore + "! You win, Play again?";
+                blackjack.gameOver = true;
                 this.playAgain();
             }
         } else {
             result.innerHTML = "The dealer burned himself, you won! Play again?"
+            blackjack.gameOver = true;
             this.playAgain();
         }
 
@@ -227,6 +243,7 @@ var views = {
         })
         resultButton.style = "display: block";
         resultButton.disabled = false;
+        
     }
     
     
