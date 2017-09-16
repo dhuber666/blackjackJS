@@ -7,8 +7,24 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Hello World</h1>
+    <h1>Welcome to Blackjack</h1>
 
+    <div class="dealer">
+        <h2>Dealer Hand: </h2>
+        <ul class="dealer-hand">
+            <!-- Add li's for every card in dealer hand -->
+        </ul>
+    </div>
+
+    <div class="player">
+        <h2>Player Hand: </h2>
+        <ul class="player-hand">
+            
+            <!-- Should display 1 card on startup, Add li's for every card in player hand -->
+        </ul>
+        <!-- Should give you another card, should check the score every turn -->
+        <button onclick="views.newCard()">Next card</button> 
+    </div>
 
     <script src="script.js"></script>
 </body>

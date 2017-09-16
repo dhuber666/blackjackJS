@@ -77,9 +77,43 @@ var blackjack = {
     }
 }
 
+var views = {
+    
+    newCardPlayer: function() {
+        
+        var li = document.createElement("LI");
+        var text = document.createTextNode(this.craftCard());
+        console.log(this.craftCard());
+        li.appendChild(text);
+        document.querySelector(".player-hand").appendChild(li);
+        
 
+    },
+    newCardDealer: function() {
+        var li = document.createElement("LI");
+        var text = document.createTextNode(this.craftCard());
+        console.log(this.craftCard());
+        li.appendChild(text);
+        document.querySelector(".dealer-hand").appendChild(li);
+    },
+    // it just creates a string for better output
+    craftCard: function() {
+        var card = blackjack.dealCard(1);
+        // Return a string with the prepared card
+        return (card[0].value + " of " + card[0].color);
+    },
+    playerSetup: function() {
+        this.newCardPlayer();
+        this.newCardPlayer();
+    },
+    dealerSetup: function() {
+        this.newCardDealer();
+    }
+}
 
 // Setup a blackjack game
 
 blackjack.generateDeck();
 blackjack.shuffleDeck();
+views.playerSetup();
+views.dealerSetup();
