@@ -35,24 +35,29 @@ var blackjack = {
             // generate a random number between 0 and 51
             var random = Math.floor(Math.random() * 51);
             // Pull out the first card on the staple (has to be shuffled first)
-            return this.cards.splice(0, 1); // returns a single card object
+            return this.cards.splice(0, 1)[0]; // returns a single card object
             //TODO: Check if the cards array is empty
         
 
         
         
     },
-    dealCardsToDealer: function() {
+    dealCardToDealer: function() {
 
         // give the dealer 2 cards
         // TODO: show just one card (but maybe do this in the view)
-        for(var i = 0; i < 2; i++)
-        {
-            this.dealer.cards.push(this.dealCard());
-        }
+        // TODO: Maybe refactor this whole deal to player and deal to dealer thing because just 
+        // "dealCard" should be good enough
+        card = this.dealCard();
+        this.dealer.cards.push(card);
+        return card;
+        
+        
     },
     dealCardToPlayer: function() {
-        this.player.cards.push(this.dealCard());
+        card = this.dealCard();
+        this.player.cards.push(card);
+        return card;
     },
     // It should shuffle the deck, returns a shuffled deck array
     shuffleDeck: function() {
@@ -81,33 +86,55 @@ var views = {
     
     newCardPlayer: function() {
         
+        var card = blackjack.dealCardToPlayer();
+        var preparedCard = card.value + " of " + card.color;
         var li = document.createElement("LI");
-        var text = document.createTextNode(this.craftCard());
-        console.log(this.craftCard());
+        var text = document.createTextNode(preparedCard);
+        
         li.appendChild(text);
         document.querySelector(".player-hand").appendChild(li);
-        
+        this.showPlayerScore();
 
     },
     newCardDealer: function() {
+        blackjack.dealCardToDealer();
+        var preparedCard = card.value + " of " + card.color;
         var li = document.createElement("LI");
-        var text = document.createTextNode(this.craftCard());
-        console.log(this.craftCard());
+        var text = document.createTextNode(preparedCard);
+        
         li.appendChild(text);
         document.querySelector(".dealer-hand").appendChild(li);
+        this.showDealerScore();
+        
     },
-    // it just creates a string for better output
-    craftCard: function() {
-        var card = blackjack.dealCard(1);
-        // Return a string with the prepared card
-        return (card[0].value + " of " + card[0].color);
-    },
+
     playerSetup: function() {
         this.newCardPlayer();
         this.newCardPlayer();
+        
     },
     dealerSetup: function() {
         this.newCardDealer();
+        this.showDealerScore();
+        
+    },
+    totalScore: function(cardArray) {
+        // it should calculate the total score of cards and return it
+        
+        var count = 0;
+        for(var i = 0; i < cardArray.length; i++) {
+            count += cardArray[i].value;
+        }
+
+        return count;
+    },
+    showDealerScore: function() {
+        var score = document.getElementById("dealerScore");
+        score.innerHTML = this.totalScore(blackjack.dealer.cards);
+    },
+    showPlayerScore: function() {
+        var score = document.getElementById("playerScore");
+        score.innerHTML = this.totalScore(blackjack.player.cards);
     }
 }
 
