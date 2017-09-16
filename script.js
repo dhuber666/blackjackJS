@@ -28,8 +28,27 @@ var blackjack = {
         
         
     },
-    cards: [] // store the deck object inside this array
+    // It should have a method to deal out a card
+    dealCard: function() {
+        // generate a random number between 0 and 51
+        var random = Math.floor(Math.random() * 51);
+        // Pull out the first card on the staple (has to be shuffled first)
+        return this.cards.splice(0, 1); // returns a single card object
+        //TODO: Check if the cards array is empty
+    },
+    // It should shuffle the deck, returns a shuffled deck array
+    shuffleDeck: function() {
+        var j, x, i;
+        for (i = this.cards.length; i; i--) {
+            j = Math.floor(Math.random() * i);
+            x = this.cards[i - 1];
+            this.cards[i - 1] = this.cards[j];
+            this.cards[j] = x;
+        }
+        
+    },
+    // store the deck object inside this array
+    cards: [] 
 }
-
 
 
