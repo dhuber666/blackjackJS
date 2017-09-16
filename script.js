@@ -137,6 +137,7 @@ var views = {
         li.appendChild(text);
         document.querySelector(".dealer-hand").appendChild(li);
         this.showDealerScore();
+        this.checkCondition();
         
     },
 
@@ -180,17 +181,40 @@ var views = {
         var resultButton = document.getElementById("resultButton");
         if (playerScore > 21) {
             result.innerHTML = "You have burned yourself and lost, play again?"
-            document.querySelectorAll("button").forEach(function(button) {
-                button.disabled = true;
-            })
-            resultButton.style = "display: block";
-            resultButton.disabled = false;
+            this.playAgain();
             
 
-        } else {
+        } 
+        // now comes the check for dealer since the player has clicked stand
+        // if less then 17 do nothing
+        if (dealerScore < 17 ) {
 
+        } else if (dealerScore >= 17 && dealerScore < 22) {
+            if (dealerScore > playerScore) {
+                result.innerHTML = "The dealer has " + dealerScore + " and you have " + playerScore + "! You loose, Play again?";
+                this.playAgain();
+            } else if (dealerScore === playerScore) {
+                result.innerHTML = "The dealer has " + dealerScore + " and you have " + playerScore + "It's a tie, Play again?";
+                this.playAgain();
+            } else {
+                result.innerHTML = "The dealer has " + dealerScore + " and you have " + playerScore + "You win, Play again?";
+                this.playAgain();
+            }
+        } else {
+            result.innerHTML = "The dealer burned himself, you won! Play again?"
+            this.playAgain();
         }
 
+        
+
+
+    },
+    playAgain: function() {
+        document.querySelectorAll("button").forEach(function(button) {
+            button.disabled = true;
+        })
+        resultButton.style = "display: block";
+        resultButton.disabled = false;
     }
     
     
