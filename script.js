@@ -24,7 +24,6 @@ var blackjack = {
             default:
                 return number;
         }
-
     },
     // it should have a generate deck function that returns an array of 52 cards
     generateDeck: function() {
@@ -38,35 +37,29 @@ var blackjack = {
                 card.value = value;
                 card.color = color;
                 this.cards.push(card);
-                
             }
         }, this)
-        
-        
     },
     // It should have a method to deal out a card
     dealCard: function(number) {
         // number = how many cards to deal
-        
             // generate a random number between 0 and 51
             var random = Math.floor(Math.random() * 51);
-            // Pull out the first card on the staple (has to be shuffled first)
-            return this.cards.splice(0, 1)[0]; // returns a single card object
-            //TODO: Check if the cards array is empty
-        
-
-        
-        
+            // check if the deck is empty and create a new one
+            if(this.cards.length === 0)
+            {
+                this.generateDeck();
+                return this.cards.splice(0, 1)[0];
+            } else {
+                return this.cards.splice(0, 1)[0];
+            }
     },
     dealCardToDealer: function() {
 
         // give the dealer 2 cards
-       
         card = this.dealCard();
         this.dealer.cards.push(card);
         return card;
-        
-        
     },
     dealCardToPlayer: function() {
         card = this.dealCard();
@@ -82,7 +75,6 @@ var blackjack = {
             this.cards[i - 1] = this.cards[j];
             this.cards[j] = x;
         }
-        
     },
     // store the deck object inside this array
     cards: [] ,
@@ -92,7 +84,10 @@ var blackjack = {
         cards: []
     },
     player: {
-        cards: []
+        cards: [],
+        wins: 0,
+        losses: 0,
+        ties: 0
     }
 }
 
@@ -124,7 +119,6 @@ var handlers = {
         views.dealerSetup();
 
         blackjack.gameOver = false;
-
     }
 }
 
@@ -152,9 +146,7 @@ var views = {
         li.appendChild(text);
         document.querySelector(".dealer-hand").appendChild(li);
         this.showDealerScore();
-
         this.checkCondition();
-        
     },
     stand: function()
     {
@@ -163,11 +155,9 @@ var views = {
             this.newCardDealer();
         }
     },
-
     playerSetup: function() {
         this.newCardPlayer();
         this.newCardPlayer();
-        
     },
     dealerSetup: function() {
         this.newCardDealer();
@@ -176,21 +166,23 @@ var views = {
     },
     totalScore: function(cardArray) {
         // it should calculate the total score of cards and return it
-        
         var count = 0;
         for(var i = 0; i < cardArray.length; i++) {
             count += cardArray[i].value;
         }
-
         return count;
     },
     showDealerScore: function() {
         var score = document.getElementById("dealerScore");
-        score.innerHTML = "Score: " + this.totalScore(blackjack.dealer.cards);
+        score.innerHTML = "Score: " + this.totalScore(blackjack.dealer.cards) + "<br> <hr>";
     },
     showPlayerScore: function() {
         var score = document.getElementById("playerScore");
-        score.innerHTML = "Score: " + this.totalScore(blackjack.player.cards);
+        var wins = document.getElementById("playerWins");
+        score.innerHTML = "Score: " + this.totalScore(blackjack.player.cards) + "<br> <hr>";
+        wins.innerHTML = "Wins: " + blackjack.player.wins + "<br> Ties: " + blackjack.player.ties + 
+        "<br> Losses: " + blackjack.player.losses;
+
     },
     // It should check the conditions if you hit the next card or stand button
     checkCondition: function() {
@@ -204,10 +196,9 @@ var views = {
         var resultButton = document.getElementById("resultButton");
         if (playerScore > 21) {
             result.innerHTML = "You have burned yourself and lost, play again?"
+            blackjack.player.losses++;
             blackjack.gameOver = true;
             this.playAgain();
-            
-
         } 
         // now comes the check for dealer since the player has clicked stand
         // if less then 17 do nothing
@@ -217,25 +208,25 @@ var views = {
             if (dealerScore > playerScore) {
                 result.innerHTML = "The dealer has " + dealerScore + " and you have " + playerScore + "! You loose, Play again?";
                 blackjack.gameOver = true;
+                blackjack.player.losses++;
                 this.playAgain();
             } else if (dealerScore === playerScore) {
                 result.innerHTML = "The dealer has " + dealerScore + " and you have " + playerScore + "! It's a tie, Play again?";
                 blackjack.gameOver = true;
+                blackjack.player.ties++;
                 this.playAgain();
             } else {
                 result.innerHTML = "The dealer has " + dealerScore + " and you have " + playerScore + "! You win, Play again?";
                 blackjack.gameOver = true;
+                blackjack.player.wins++;
                 this.playAgain();
             }
         } else {
             result.innerHTML = "The dealer burned himself, you won! Play again?"
             blackjack.gameOver = true;
+            blackjack.player.wins++;
             this.playAgain();
         }
-
-        
-
-
     },
     playAgain: function() {
         document.querySelectorAll("button").forEach(function(button) {
@@ -243,10 +234,7 @@ var views = {
         })
         resultButton.style = "display: block";
         resultButton.disabled = false;
-        
     }
-    
-    
 }
 
 function newGame () {
@@ -255,7 +243,5 @@ function newGame () {
     views.playerSetup();
     views.dealerSetup();
 }
-
 // Setup a blackjack game
-
 newGame();
