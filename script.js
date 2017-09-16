@@ -9,7 +9,21 @@ var blackjack = {
     // it should have a generate card function
     generateCard: function() {
         // generate a random number between 0 and 12 and return it
-        return Math.floor(Math.random() * 13);
+        var number =  Math.floor(Math.random() * 13);
+        switch(number) {
+            case 0:         //  this is an ace. should return 1 OR 11 TODO: Add that later
+                return 1;
+
+            case 11: 
+                return 10;
+
+            case 12:
+                return 10;
+
+            default:
+                return number;
+        }
+
     },
     // it should have a generate deck function that returns an array of 52 cards
     generateDeck: function() {
@@ -46,9 +60,7 @@ var blackjack = {
     dealCardToDealer: function() {
 
         // give the dealer 2 cards
-        // TODO: show just one card (but maybe do this in the view)
-        // TODO: Maybe refactor this whole deal to player and deal to dealer thing because just 
-        // "dealCard" should be good enough
+       
         card = this.dealCard();
         this.dealer.cards.push(card);
         return card;
