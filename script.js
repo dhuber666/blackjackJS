@@ -15,6 +15,7 @@ var blackjack = {
     generateDeck: function() {
         // return an array with 52 cards. Get the random cards from the generateCard function
         // var cards = [];
+        debugger;
         this.colors.forEach(function(color){
             for(var i = 0; i < 13; i++) {
                 var value = this.generateCard();
