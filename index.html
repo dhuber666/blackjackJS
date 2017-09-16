@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <title>Blackjack Game</title>
 </head>
 <body>
     <h1>Welcome to Blackjack</h1>
@@ -29,7 +30,7 @@
         <button id="standButton" onclick="views.newCardDealer()">Stand</button>
     </div>
 
-    <div>
+    <div class="result">
         <h2 id="result"></h2>
         <button style="display: none" id="resultButton" onclick="handlers.resetGame()">yes</button>
     </div>

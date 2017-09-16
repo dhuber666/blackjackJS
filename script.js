@@ -175,11 +175,11 @@ var views = {
     },
     showDealerScore: function() {
         var score = document.getElementById("dealerScore");
-        score.innerHTML = this.totalScore(blackjack.dealer.cards);
+        score.innerHTML = "Score: " + this.totalScore(blackjack.dealer.cards);
     },
     showPlayerScore: function() {
         var score = document.getElementById("playerScore");
-        score.innerHTML = this.totalScore(blackjack.player.cards);
+        score.innerHTML = "Score: " + this.totalScore(blackjack.player.cards);
     },
     // It should check the conditions if you hit the next card or stand button
     checkCondition: function() {
@@ -206,10 +206,10 @@ var views = {
                 result.innerHTML = "The dealer has " + dealerScore + " and you have " + playerScore + "! You loose, Play again?";
                 this.playAgain();
             } else if (dealerScore === playerScore) {
-                result.innerHTML = "The dealer has " + dealerScore + " and you have " + playerScore + "It's a tie, Play again?";
+                result.innerHTML = "The dealer has " + dealerScore + " and you have " + playerScore + "! It's a tie, Play again?";
                 this.playAgain();
             } else {
-                result.innerHTML = "The dealer has " + dealerScore + " and you have " + playerScore + "You win, Play again?";
+                result.innerHTML = "The dealer has " + dealerScore + " and you have " + playerScore + "! You win, Play again?";
                 this.playAgain();
             }
         } else {
