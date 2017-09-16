@@ -83,6 +83,36 @@ var blackjack = {
     }
 }
 
+var handlers = {
+    
+    resetGame: function() {
+        
+        // if the resultButton gets clicked start a new game
+        // Empty player and dealer cards array deal 1 new card to the dealer and 2 new cards to the player
+        blackjack.player.cards = [];
+        blackjack.dealer.cards = [];
+        // reactivate the buttons
+        var result = document.getElementById("result");
+        var resultButton = document.getElementById("resultButton");
+        var playerHand = document.querySelector(".player-hand");
+        var dealerHand = document.querySelector(".dealer-hand");
+
+        //TODO: Make a button setup function
+        playerHand.innerHTML = "";
+        dealerHand.innerHTML = "";
+        result.innerHTML = "";
+        document.querySelectorAll("button").forEach(function(button) {
+            button.disabled = false;
+        });
+        resultButton.disabled = true;
+        resultButton.style = "display: none";
+        
+        views.playerSetup();
+        views.dealerSetup();
+
+    }
+}
+
 var views = {
     
     newCardPlayer: function() {
@@ -155,13 +185,14 @@ var views = {
             })
             resultButton.style = "display: block";
             resultButton.disabled = false;
-           
+            
 
         } else {
 
         }
 
     }
+    
     
 }
 
