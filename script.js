@@ -87,7 +87,8 @@ var blackjack = {
         cards: [],
         wins: 0,
         losses: 0,
-        ties: 0
+        ties: 0,
+        chips: 30
     }
 }
 
@@ -104,6 +105,14 @@ var handlers = {
         var resultButton = document.getElementById("resultButton");
         var playerHand = document.querySelector(".player-hand");
         var dealerHand = document.querySelector(".dealer-hand");
+        // bet button
+        var betButton = document.getElementById("placeBet");
+        betButton.style = "display: inline-block";
+        // bet display
+        var betDisplay = document.getElementById("betScore");
+        betDisplay.innerHTML = "0";
+        bet.betScore = 0;
+
 
         //TODO: Make a button setup function
         playerHand.innerHTML = "";
@@ -119,13 +128,18 @@ var handlers = {
         views.dealerSetup();
 
         blackjack.gameOver = false;
+        blackjack.player.chips = 30; //TODO: delete this later on and dont give them every new round 30 chips
+        views.showPlayerScore();
     }
 }
 
 var views = {
     
     newCardPlayer: function() {
-        
+        // deactive bet button
+        var betButton = document.getElementById("placeBet");
+        betButton.style = "display: none";
+
         var card = blackjack.dealCardToPlayer();
         var preparedCard = card.value + " of " + card.color;
         var li = document.createElement("LI");
@@ -156,8 +170,17 @@ var views = {
         }
     },
     playerSetup: function() {
-        this.newCardPlayer();
-        this.newCardPlayer();
+        for(var i = 0; i < 2; i++) {
+            var card = blackjack.dealCardToPlayer();
+            var preparedCard = card.value + " of " + card.color;
+            var li = document.createElement("LI");
+            var text = document.createTextNode(preparedCard);
+            
+            li.appendChild(text);
+            document.querySelector(".player-hand").appendChild(li);
+            this.showPlayerScore();
+            this.checkCondition();
+        }
     },
     dealerSetup: function() {
         this.newCardDealer();
@@ -181,7 +204,8 @@ var views = {
         var wins = document.getElementById("playerWins");
         score.innerHTML = "Score: " + this.totalScore(blackjack.player.cards) + "<br> <hr>";
         wins.innerHTML = "Wins: " + blackjack.player.wins + "<br> Ties: " + blackjack.player.ties + 
-        "<br> Losses: " + blackjack.player.losses;
+        "<br> Losses: " + blackjack.player.losses + "<br> <hr> " + "Chips: " + blackjack.player.chips;
+        
 
     },
     // It should check the conditions if you hit the next card or stand button
@@ -236,6 +260,28 @@ var views = {
         resultButton.disabled = false;
     }
 }
+var bet =  {
+    // Every player should start with 30 chips
+    // this means the player needs a chips variable. 
+
+    // player can place bet before the game starts. Afterwards he can't bet anymore
+        // It should have a button that adds 2 chips per click to the pot. 
+        // It should have a p tag that displays the chips in pot
+    betScore: 0,
+    addBet: function () {
+        // pick the paragraph
+        
+        var betValue = document.getElementById("betScore");
+        this.betScore += 2;
+        betValue.innerHTML = this.betScore;
+        // decrement the player chips every time buttin is clicked by 2
+        blackjack.player.chips -= 2;
+        views.showPlayerScore();
+        
+
+    }
+
+}
 
 function newGame () {
     blackjack.generateDeck();
@@ -245,3 +291,4 @@ function newGame () {
 }
 // Setup a blackjack game
 newGame();
+

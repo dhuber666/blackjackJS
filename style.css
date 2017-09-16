@@ -13,11 +13,51 @@ h1 {
     text-align: center;
 }
 
-.dealer, .player, .result {
+
+
+.player {
     width: 20%;
-    margin: 50px auto;
     
+    
+    
+    display: inline-block;
+    position: absolute;
+    top: 10%;
+    left: 33%;
     padding: 10px;
+
+}
+
+#betScore {
+    display: inline;
+    margin-left: 20px;
+}
+
+.dealer {
+    
+    
+    display: inline-block;
+    position: absolute;
+    top: 10%;
+    padding: 10px;
+    margin-left: 20px;
+   
+}
+
+.bet {
+    width: 500px;
+    display: inline-block;
+    margin: 0 auto;
+    position: absolute;
+    top: 10%;
+    left: 55%;
+    padding: 10px;
+}
+
+.result {
+    margin-top: 30%;
+    margin-left: 33%;
+    position: relative;
 
 }
 
@@ -38,18 +78,18 @@ li {
     display: inline-block;
     margin-left: 20px;
     margin-right: 20px;
-    line-height: 150px;
+    line-height: 80px;
     color: black;
     font-size: 15px;
     margin-bottom: 20px;
     margin-top: 20px;
-    
+    padding: 10px;
     
 }
 
 h2 {
     font-size: 30px;
-    color: white;
+    color: black;
 
 }
 
@@ -68,7 +108,7 @@ button {
     font-size: 20px;
     padding: 10px 20px 10px 20px;
     text-decoration: none;
-    transform: scale(0.8);
+    transform: scale(0.7);
   }
   
   button:hover {

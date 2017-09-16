@@ -17,18 +17,24 @@
         </ul>
         <p id="dealerScore">test</p>
     </div>
-
-    <div class="player">
-        <h2>Player Hand: </h2>
-        <ul class="player-hand">
-            
-            <!-- Should display 1 card on startup, Add li's for every card in player hand -->
-        </ul>
-        <p id="playerScore">test</p>
-        <p id="playerWins"></p>
-        <!-- Should give you another card, should check the score every turn -->
-        <button onclick="views.newCardPlayer()">Next card</button>
-        <button id="standButton" onclick="views.stand()">Stand</button>
+    <div class="container">
+        <div class="player">
+            <h2>Player Hand: </h2>
+            <ul class="player-hand">
+                
+                <!-- Should display 1 card on startup, Add li's for every card in player hand -->
+            </ul>
+            <p id="playerScore">test</p>
+            <p id="playerWins"></p>
+            <!-- Should give you another card, should check the score every turn -->
+            <button onclick="views.newCardPlayer()">Next card</button>
+            <button id="standButton" onclick="views.stand()">Stand</button>
+        </div>
+        <div class="bet">
+            <h2>Place your bets:</h2>
+            <button id="placeBet" onclick="bet.addBet()">2 Chips</button>
+            <p id="betScore">0</p>
+        </div>
     </div>
 
     <div class="result">
