@@ -29,12 +29,30 @@ var blackjack = {
         
     },
     // It should have a method to deal out a card
-    dealCard: function() {
-        // generate a random number between 0 and 51
-        var random = Math.floor(Math.random() * 51);
-        // Pull out the first card on the staple (has to be shuffled first)
-        return this.cards.splice(0, 1); // returns a single card object
-        //TODO: Check if the cards array is empty
+    dealCard: function(number) {
+        // number = how many cards to deal
+        
+            // generate a random number between 0 and 51
+            var random = Math.floor(Math.random() * 51);
+            // Pull out the first card on the staple (has to be shuffled first)
+            return this.cards.splice(0, 1); // returns a single card object
+            //TODO: Check if the cards array is empty
+        
+
+        
+        
+    },
+    dealCardsToDealer: function() {
+
+        // give the dealer 2 cards
+        // TODO: show just one card (but maybe do this in the view)
+        for(var i = 0; i < 2; i++)
+        {
+            this.dealer.cards.push(this.dealCard());
+        }
+    },
+    dealCardToPlayer: function() {
+        this.player.cards.push(this.dealCard());
     },
     // It should shuffle the deck, returns a shuffled deck array
     shuffleDeck: function() {
@@ -48,7 +66,20 @@ var blackjack = {
         
     },
     // store the deck object inside this array
-    cards: [] 
+    cards: [] ,
+    // it should have a dealer that has a dealer hand
+    // dealer where we add 2 cards to his hand
+    dealer: { 
+        cards: []
+    },
+    player: {
+        cards: []
+    }
 }
 
 
+
+// Setup a blackjack game
+
+blackjack.generateDeck();
+blackjack.shuffleDeck();
