@@ -15,7 +15,7 @@ var blackjack = {
     generateDeck: function() {
         // return an array with 52 cards. Get the random cards from the generateCard function
         // var cards = [];
-        debugger;
+        
         this.colors.forEach(function(color){
             for(var i = 0; i < 13; i++) {
                 var value = this.generateCard();
@@ -95,6 +95,7 @@ var views = {
         li.appendChild(text);
         document.querySelector(".player-hand").appendChild(li);
         this.showPlayerScore();
+        this.checkCondition();
 
     },
     newCardDealer: function() {
@@ -136,12 +137,41 @@ var views = {
     showPlayerScore: function() {
         var score = document.getElementById("playerScore");
         score.innerHTML = this.totalScore(blackjack.player.cards);
+    },
+    // It should check the conditions if you hit the next card or stand button
+    checkCondition: function() {
+        // compare the player score with the dealer score
+        var playerCards = blackjack.player.cards;
+        var playerScore = this.totalScore(playerCards);
+        var dealerCards = blackjack.dealer.cards;
+        var dealerScore = this.totalScore(dealerCards);
+        // select the result div > h2 and button
+        var result = document.getElementById("result");
+        var resultButton = document.getElementById("resultButton");
+        if (playerScore > 21) {
+            result.innerHTML = "You have burned yourself and lost, play again?"
+            document.querySelectorAll("button").forEach(function(button) {
+                button.disabled = true;
+            })
+            resultButton.style = "display: block";
+            resultButton.disabled = false;
+           
+
+        } else {
+
+        }
+
     }
+    
+}
+
+function newGame () {
+    blackjack.generateDeck();
+    blackjack.shuffleDeck();
+    views.playerSetup();
+    views.dealerSetup();
 }
 
 // Setup a blackjack game
 
-blackjack.generateDeck();
-blackjack.shuffleDeck();
-views.playerSetup();
-views.dealerSetup();
+newGame();
