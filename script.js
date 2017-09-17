@@ -7,6 +7,8 @@ var blackjack = {
         "clubs"
     ],
     gameOver: false,
+    chipsLeft: true,
+    firstRound: true,
     // it should have a generate card function
     generateCard: function() {
         // generate a random number between 0 and 12 and return it
@@ -112,6 +114,9 @@ var handlers = {
         var betDisplay = document.getElementById("betScore");
         betDisplay.innerHTML = "0";
         bet.betScore = 0;
+        //warning display
+        var warning = document.getElementById("warning");
+        warning.innerHTML = "";
 
 
         //TODO: Make a button setup function
@@ -128,6 +133,11 @@ var handlers = {
         views.dealerSetup();
 
         blackjack.gameOver = false;
+        if(!blackjack.chipsLeft) {
+            blackjack.player.chips = 30;
+        }
+        warning.innerHTML = "";
+        firstRound = false;
         views.showPlayerScore();
     }
 }
@@ -210,6 +220,13 @@ var views = {
         score.innerHTML = "Score: " + this.totalScore(blackjack.player.cards) + "<br> <hr>";
         wins.innerHTML = "Wins: " + blackjack.player.wins + "<br> Ties: " + blackjack.player.ties + 
         "<br> Losses: " + blackjack.player.losses + "<br> <hr> " + "Chips: " + blackjack.player.chips;
+        if (blackjack.player.chips <= 0 && !firstRound) {
+            // select warning
+            var warning = document.getElementById("warning");
+            warning.innerHTML = "You have lost all your chip, want to bet your wife instead?";
+            blackjack.chipsLeft = false;
+
+        }
         
 
     },
@@ -278,14 +295,20 @@ var bet =  {
     betScore: 0,
     addBet: function () {
         // pick the paragraph
-        
-        var betValue = document.getElementById("betScore");
-        this.betScore += 2;
-        betValue.innerHTML = this.betScore;
-        chip.play();
-        // decrement the player chips every time buttin is clicked by 2
-        blackjack.player.chips -= 2;
-        views.showPlayerScore();
+        if (blackjack.player.chips > 0) {
+            var betValue = document.getElementById("betScore");
+            this.betScore += 2;
+            betValue.innerHTML = this.betScore;
+            chip.play();
+            // decrement the player chips every time buttin is clicked by 2
+            blackjack.player.chips -= 2;
+            views.showPlayerScore();
+        } else {
+            // select warning p tag and warn user
+            var warning = document.getElementById("warning");
+            warning.innerHTML = "You have no more chips left - start the game now";
+        }
+
         
 
     }
@@ -305,4 +328,10 @@ function newGame () {
 }
 // Setup a blackjack game
 newGame();
+
+//TODO: Right now we deal 2 cards to player before he places the bet. Should see his cards after placing bets
+//TODO: Player can have 0 or < 0 chips and still can play
+//TODO: Make that damn site prettier
+//TODO: Add an option so more player can play
+//TODO: Come back after I have gained much more knowledge and add backend savegame and user registration + multiplayer?
 
