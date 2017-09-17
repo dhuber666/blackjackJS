@@ -144,7 +144,7 @@ var views = {
         var preparedCard = card.value + " of " + card.color;
         var li = document.createElement("LI");
         var text = document.createTextNode(preparedCard);
-        
+        audio.play();
         li.appendChild(text);
         document.querySelector(".player-hand").appendChild(li);
         this.showPlayerScore();
@@ -162,6 +162,7 @@ var views = {
         
         li.appendChild(text);
         document.querySelector(".dealer-hand").appendChild(li);
+        audio.play();
         this.showDealerScore();
         this.checkCondition();
     },
@@ -181,6 +182,7 @@ var views = {
             
             li.appendChild(text);
             document.querySelector(".player-hand").appendChild(li);
+            audio.play();
             this.showPlayerScore();
             this.checkCondition();
         }
@@ -288,6 +290,9 @@ var bet =  {
     }
 
 }
+
+var audio = document.getElementsByTagName("audio")[0];
+
 
 function newGame () {
     blackjack.generateDeck();

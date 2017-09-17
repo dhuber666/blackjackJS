@@ -1,3 +1,10 @@
+@keyframes li {
+    0%   {background-color:red; top:-350px;}
+    
+    100% {background-color:red; top:0px;}
+}
+
+
 body {
     margin: 0;
     padding: 0;
@@ -84,6 +91,10 @@ li {
     margin-bottom: 20px;
     margin-top: 20px;
     padding: 10px;
+    position: relative;
+    animation-name: li;
+    animation-duration: 1s;
+    
     
 }
 
