@@ -8,130 +8,173 @@
 body {
     margin: 0;
     padding: 0;
-    width: 100%;
-    background: #00C9FF;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to bottom, #92FE9D, #00C9FF);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to bottom, #92FE9D, #00C9FF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    background-repeat: no-repeat;
-    background-attachment: fixed;
+    background-color: #F7EEEE;
 }
 
-h1 {
+.nav {
+    /* Rectangle 2: */
+    background: #A57171;
+    border: 1px solid #979797;
+    /* Blackjack just anoth: */
+    font-family: Helvetica-Bold;
+    font-size: 24px;
+    color: #000000;
     text-align: center;
+    margin-bottom: 0;
 }
 
-
-
-.player {
-    width: 20%;
-    
-    
-    
-    display: inline-block;
-    position: absolute;
-    top: 10%;
-    left: 33%;
-    padding: 10px;
-
+.nav h1 {
+    margin-bottom: 0;
+    margin-top: 10px;
 }
 
-#betScore {
-    display: inline;
-    margin-left: 20px;
+h3 {
+    margin-top: 10px;
+    color: white;
+    font-weight: normal;
+    font-size: 19px;
+    font-style: italic;
 }
 
 .dealer {
     
-    
-    display: inline-block;
-    position: absolute;
-    top: 10%;
-    padding: 10px;
-    margin-left: 20px;
-   
+    /* Rectangle 5: */
+    background: #9DCA69;
+    border: 1px solid #979797;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.50);
+    width: 800px;
+    margin-left: 50px;
 }
 
-.bet {
-    width: 500px;
-    display: inline-block;
-    margin: 0 auto;
-    position: absolute;
-    top: 10%;
-    left: 55%;
-    padding: 10px;
+.player {
+        /* Rectangle 5: */
+        background: #9DCA69;
+        border: 1px solid #979797;
+        box-shadow: 0 2px 4px 0 rgba(0,0,0,0.50);
+        width: 800px;
+        margin-left: 50px;
+        
 }
 
-.result {
-    margin-top: 30%;
-    margin-left: 33%;
-    position: relative;
-
-}
-
-/* cards should represent cards */
-
-ul, ul.dealer-hand {
-    width: 100%;
-    margin: 0;
-    padding: 0;
+h2 {
+    font-size: 27px;
+    margin-left: 50px;
 }
 
 li {
     list-style: none;
-    background: red;
+    float: left;
+    /* Rectangle 6: */
+    background: #69B181;
+    border: 3px solid #D0A0A0;
+    width: 100px; 
+    height: 160px;
+    margin-left: 10px;
+
+}
+
+ul.dealer-hand, ul {
+    width: 800px; 
+    height: 160px;
+}
+#dealerScore, #playerScore {
+    float: right;
+    margin-top: 30px;
     
-    text-align: center;
     
-    display: inline-block;
+}
+
+.playerWins {
     margin-left: 20px;
-    margin-right: 20px;
-    line-height: 80px;
-    color: black;
-    font-size: 15px;
-    margin-bottom: 20px;
-    margin-top: 20px;
-    padding: 10px;
     position: relative;
-    animation-name: li;
-    animation-duration: 1s;
+    left: 20px;
+}
+
+.result {
+    /* Rectangle 2: */
+    background: #A57171;
+    border: 1px solid #979797;
+    /* Blackjack just anoth: */
+    font-family: Helvetica-Bold;
+    font-size: 18px;
+    color: #000000;
+    height: 172px;
+    margin-bottom: 0;
+    margin-top: 50px;
+    position: relative;
+    bottom: 0;
+
+    
+}
+
+.bet {
+    width: 397px;
+    height: 140px;
+    background-color: #733E3E;
+    
+    /* Rectangle: */
+    background: #733E3E;
+    box-shadow: 0 2px 4px 2px rgba(0,0,0,0.50);
+    border-radius: 10px;
+    margin-top: 30px;
+    position: absolute;
+    top: -10%;
+    right: 10px;
+    background: yellow;
+}
+
+.bet h2 {
+    margin: 5px;
+}
+
+
+.bet button {
+    width: 85px;
+    height: 35px;
+    /* Rectangle 7: */
+    background: #D8D8D8;
+    border: 1px solid #979797;
+    border-radius: 10px;
+    display: inline-block;
+    text-align: center;
+    margin: 0 auto;
+    position: absolute; 
     
     
 }
 
-h2 {
-    font-size: 30px;
-    color: black;
-
+#betScore {
+    text-align: center;
 }
 
-button {
-    background: #3498db;
-    background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
-    background-image: -moz-linear-gradient(top, #3498db, #2980b9);
-    background-image: -ms-linear-gradient(top, #3498db, #2980b9);
-    background-image: -o-linear-gradient(top, #3498db, #2980b9);
-    background-image: linear-gradient(to bottom, #3498db, #2980b9);
-    -webkit-border-radius: 28;
-    -moz-border-radius: 28;
-    border-radius: 28px;
-    font-family: Arial;
-    color: #ffffff;
-    font-size: 20px;
-    padding: 10px 20px 10px 20px;
-    text-decoration: none;
-    transform: scale(0.7);
-  }
-  
-  button:hover {
-    background: #3cb0fd;
-    background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
-    background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
-    background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
-    background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
-    background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
-    text-decoration: none;
-  }
+#warning {
+    background: red;
+    margin-bottom: 20px;
+    text-align: center;
+    display: inline-block;
+    position: relative;
+}
 
-  p {
-      font-size: 23px;
-  }
+#warning-wrap {
+    position: absolute;
+    left: 12%;
+    bottom: 14%;
+}
+
+#button-wrap {
+    position: absolute;
+    left: 12%;
+    bottom: 16%;
+}
+
+#button-wrap button {
+    /* Rectangle 7: */
+background: #D8D8D8;
+border: 1px solid #979797;
+box-shadow: 0 2px 4px 0 rgba(0,0,0,0.50);
+border-radius: 10px;
+/* Stand: */
+font-family: Helvetica-Bold;
+font-size: 20px;
+color: #090909;
+}

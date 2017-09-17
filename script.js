@@ -222,14 +222,15 @@ var views = {
     },
     showDealerScore: function() {
         var score = document.getElementById("dealerScore");
-        score.innerHTML = "Score: " + this.totalScore(blackjack.dealer.cards) + "<br> <hr>";
+        score.innerHTML = "Total: " + this.totalScore(blackjack.dealer.cards) + "<br> <hr>";
     },
     showPlayerScore: function() {
         var score = document.getElementById("playerScore");
         var wins = document.getElementById("playerWins");
-        score.innerHTML = "Score: " + this.totalScore(blackjack.player.cards) + "<br> <hr>";
+        score.innerHTML = "Total: " + this.totalScore(blackjack.player.cards) + " || " + " Chips: " + blackjack.player.chips + "<br> <hr>";
         wins.innerHTML = "Wins: " + blackjack.player.wins + "<br> Ties: " + blackjack.player.ties + 
-        "<br> Losses: " + blackjack.player.losses + "<br> <hr> " + "Chips: " + blackjack.player.chips;
+        "<br> Losses: " + blackjack.player.losses + "<br>  ";
+        //+ "Chips: " + blackjack.player.chips;
         if (blackjack.player.chips <= 0 && !firstRound) {
             // select warning
             var warning = document.getElementById("warning");
@@ -248,10 +249,10 @@ var views = {
         var dealerCards = blackjack.dealer.cards;
         var dealerScore = this.totalScore(dealerCards);
         // select the result div > h2 and button
-        var result = document.getElementById("result");
+        var result = document.getElementById("warning");
         var resultButton = document.getElementById("resultButton");
         if (playerScore > 21) {
-            result.innerHTML = "You have burned yourself and lost, play again?"
+            warning.innerHTML = "You have burned yourself and lost, play again?"
             blackjack.player.losses++;
             blackjack.gameOver = true;
             this.playAgain();
