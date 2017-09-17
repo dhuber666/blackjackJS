@@ -282,6 +282,7 @@ var bet =  {
         var betValue = document.getElementById("betScore");
         this.betScore += 2;
         betValue.innerHTML = this.betScore;
+        chip.play();
         // decrement the player chips every time buttin is clicked by 2
         blackjack.player.chips -= 2;
         views.showPlayerScore();
@@ -291,7 +292,9 @@ var bet =  {
 
 }
 
+// sounds
 var audio = document.getElementsByTagName("audio")[0];
+var chip = document.getElementsByTagName("audio")[1];
 
 
 function newGame () {
