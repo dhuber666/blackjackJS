@@ -165,6 +165,7 @@ var views = {
 
     },
     newCardDealer: function() {
+        
         blackjack.dealCardToDealer();
         var preparedCard = card.value + " of " + card.color;
         var li = document.createElement("LI");
@@ -184,22 +185,31 @@ var views = {
         }
     },
     playerSetup: function() {
-        for(var i = 0; i < 2; i++) {
-            var card = blackjack.dealCardToPlayer();
-            var preparedCard = card.value + " of " + card.color;
-            var li = document.createElement("LI");
-            var text = document.createTextNode(preparedCard);
-            
-            li.appendChild(text);
-            document.querySelector(".player-hand").appendChild(li);
-            audio.play();
-            this.showPlayerScore();
-            this.checkCondition();
+
+        if(!blackjack.firstRound) {
+            for(var i = 0; i < 2; i++) {
+                var card = blackjack.dealCardToPlayer();
+                var preparedCard = card.value + " of " + card.color;
+                var li = document.createElement("LI");
+                var text = document.createTextNode(preparedCard);
+                
+                li.appendChild(text);
+                document.querySelector(".player-hand").appendChild(li);
+                audio.play();
+                this.showPlayerScore();
+                this.checkCondition();
+            }
         }
+        
     },
     dealerSetup: function() {
         this.newCardDealer();
         this.showDealerScore();
+        // hide buttons at startup
+        var nextButton = document.getElementById("nextButton");
+        var standButton = document.getElementById("standButton");
+        nextButton.style = "display: none";
+        standButton.style = "display: none";
         
     },
     totalScore: function(cardArray) {
@@ -308,9 +318,13 @@ var bet =  {
             var warning = document.getElementById("warning");
             warning.innerHTML = "You have no more chips left - start the game now";
         }
-
-        
-
+    },
+    start: function () {
+        // set the play buttons to visible
+        var nextButton = document.getElementById("nextButton");
+        var standButton = document.getElementById("standButton");
+        nextButton.style = "display: inline-block";
+        standButton.style = "display: inline-block";
     }
 
 }
@@ -330,7 +344,6 @@ function newGame () {
 newGame();
 
 //TODO: Right now we deal 2 cards to player before he places the bet. Should see his cards after placing bets
-//TODO: Player can have 0 or < 0 chips and still can play
 //TODO: Make that damn site prettier
 //TODO: Add an option so more player can play
 //TODO: Come back after I have gained much more knowledge and add backend savegame and user registration + multiplayer?
